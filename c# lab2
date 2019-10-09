@@ -1,0 +1,238 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Laba2zad1csharp
+{
+    class IntArray
+    {
+        private int[] arr;
+
+        public IntArray()
+        {
+            this.arr = new int[0];
+        }
+
+        public IntArray(int size)
+        {
+            this.arr = new int[size];
+        }
+      
+        public int this[int index]
+        {
+            get
+            {
+                int res = int.MinValue;
+                try
+                {
+                    res = this.arr[index];
+                }
+                catch (IndexOutOfRangeException)
+                {
+                }
+                return res;
+            }
+            set
+            {
+                if (index >= 0 && index < this.arr.Length)
+                    this.arr[index] = value;
+            }
+        }
+        public int Count
+        {
+            get { return this.arr.Length; }
+        }
+   
+        public static IntArray operator +(IntArray arr1, IntArray arr2)
+        {
+            IntArray res = new IntArray();
+            if (arr1.Count == arr2.Count)
+            {
+                res = new IntArray(arr1.Count);
+                for (int i = 0; i < res.Count; i++)
+                    res[i] = arr1[i] + arr2[i];
+            }
+            return res;
+        }
+
+        public static IntArray operator -(IntArray arr1, IntArray arr2)
+        {
+            IntArray res = new IntArray();
+            if (arr1.Count == arr2.Count)
+            {
+                res = new IntArray(arr1.Count);
+                for (int i = 0; i < res.Count; i++)
+                    res[i] = arr1[i] - arr2[i];
+            }
+            return res;
+        }
+
+        public static IntArray operator *(IntArray arr1, int number)
+        {
+            IntArray res = new IntArray(arr1.Count);
+            for (int i = 0; i < arr1.Count; i++)
+                res[i] = arr1[i] * number;
+            return res;
+        }
+
+        public static IntArray operator /(IntArray arr1, int number)
+        {
+            IntArray res = new IntArray(arr1.Count);
+            for (int i = 0; i < arr1.Count; i++)
+                res[i] = arr1[i] / number;
+            return res;
+        }
+
+        public void Print()
+        {
+            Console.Write("Array: ");
+            for (int i = 0; i < arr.Length; i++)
+                Console.Write("{0} ", arr[i]);
+            Console.WriteLine();
+        }
+
+        public void Print(int index)
+        {
+            if (index > -1 && index < arr.Length)
+                Console.WriteLine("{0} element have value {1}", index, arr[index]);
+        }
+        public static IntArray operator ++(IntArray obj)
+        {
+            for (int i = 0; i < obj.Count; i++)
+            {
+                obj[i] = obj[i] + 1;
+            }
+            return obj;
+        }
+
+        public static IntArray operator --(IntArray obj)
+        {
+            for (int i = 0; i < obj.Count; i++)
+            {
+                obj[i] = obj[i] - 1;
+            }
+            return obj;
+        }
+        public bool isSorted
+        {
+            get { 
+                bool sorted = false;
+
+                for (int i = 0; i < this.Count - 1; i++)
+                {
+                    if (this[i] > this[i + 1])
+                    {
+                        return true;
+                        break;
+                    }
+                }
+                return sorted;
+            }
+        }
+        public static bool operator false(IntArray obj)
+        {
+            
+            return obj.isSorted;
+        }
+
+        public static bool operator true(IntArray obj)
+        {
+            return obj.isSorted;
+        }
+
+        public static bool operator !(IntArray obj)
+        {
+            return obj.isSorted;
+        }
+
+        public static IntArray operator *(int skal, IntArray obj)
+        {
+            for (int i = 0; i < obj.Count; i++)
+            {
+                obj[i] = obj[i] * skal;
+            }
+            return obj;
+        }
+
+
+        public static explicit operator String(IntArray obj)
+        {
+            string str = "";
+            for (int i = 0; i < obj.Count; i++)
+            {
+                str = str + obj[i] + ' ';
+            }
+            return str;
+        }
+
+        public static explicit operator IntArray(string str)
+        {
+            string[] q = str.Split(new char[] {' ' }, StringSplitOptions.RemoveEmptyEntries);
+            IntArray obj = new IntArray(q.Length);
+            for (int i = 0; i < obj.Count; i++)
+            {
+                obj[i] = int.Parse(q[i]);
+            }
+            return obj;
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Laba2zad1csharp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            IntArray arr = new IntArray(10);
+            IntArray arr2 = new IntArray(10);
+            Random rand = new Random();
+            for (int i = 0; i < arr.Count; i++)
+                arr[i] = rand.Next(-10, 10);
+
+            for (int i = 0; i < arr2.Count; i++)
+                arr2[i] = rand.Next(-10, 10);
+
+            arr.Print();
+            arr2.Print();
+
+            IntArray arr3 = arr + arr2;
+            arr3.Print();
+
+            arr3 = arr - arr2;
+            arr3.Print();
+
+            arr3 = arr * 2;
+            arr3.Print();
+
+            arr3 = arr / 2;
+            arr3.Print();
+
+            arr3.Print(2);
+
+            ++arr3;
+            arr3.Print();
+
+            bool test1 = !arr3;
+            Console.WriteLine(test1);
+
+            IntArray arr4 = arr;
+            arr4.Print();
+            arr4 = 3 * arr4;
+            arr.Print();
+
+            string str = (string)arr4;
+            Console.WriteLine(str);
+
+            IntArray arr5 = (IntArray)str;
+            arr5.Print();
+            Console.WriteLine();
+        }
+    }
+}
