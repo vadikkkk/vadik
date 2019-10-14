@@ -1,4 +1,4 @@
-private void Sort_Count(Hotel[] b, int size)\\Бульбашка
+private void Sort_Count(Hotel[] b, int size)\\шейкер
         {
 
             Hotel x;
@@ -30,7 +30,7 @@ private void Sort_Count(Hotel[] b, int size)\\Бульбашка
             }
         }
         
-         private void Sort_Count(Hotel[] b, int size)\\мин елементыв
+         private void Sort_Count(Hotel[] b, int size)\\мін елементів
         {
             for (int i = 0; i < size - 1; i++)
             {
