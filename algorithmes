@@ -47,3 +47,18 @@ private void Sort_Count(Hotel[] b, int size)\\Бульбашка
                 b[i] = temp;
             }
         }
+
+private void Sort_Count(Hotel[] b, int size)\\вставки
+        {
+            Hotel x;
+            long i, j;
+            for (i = 0; i < size; i++)
+            {
+                x = b[i];
+                for (j = i - 1; j >= 0 && b[j].count > x.count; j--)
+                    b[j + 1] = b[j]; 
+                
+                b[j + 1] = x;
+            }
+
+        }
