@@ -62,3 +62,24 @@ private void Sort_Count(Hotel[] b, int size)\\вставки
             }
 
         }
+
+private void Sort_Count(Hotel[] b, int size)\\шелла
+        {
+            int d = size, i, j;
+            d = d / 2;
+            while (d > 0)
+            {
+                for (i = 0; i < size - d; i++)
+                {
+                    j = i;
+                    while (j >= 0 && b[j].count > b[j + d].count)
+                    {
+                        count = b[j].count;
+                        b[j].count = b[j + d].count;
+                        b[j + d].count = count;
+                        j--;
+                    }
+                }
+                d = d / 2;
+            }
+        }
